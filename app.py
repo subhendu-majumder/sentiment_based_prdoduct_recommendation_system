@@ -20,7 +20,7 @@ def home():
             flag = ""
         else:
             user = user.replace(" ", "").lower()
-            data = recommend.getTopProducts(user)
+            data = recommend.getRecommendation(user)
             if data == "":
                 flag = False
     return render_template('index.html', data=data, flag=flag, org_user=org_user)

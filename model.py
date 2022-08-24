@@ -1,5 +1,5 @@
 import pickle
-import sklearn
+#import sklearn
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 
@@ -12,7 +12,7 @@ class Recommendation:
         self.raw_data = pd.read_csv("data/sample30.csv")
         self.data = pd.concat([self.raw_data[['id', 'name','reviews_username', 'reviews_rating']], self.data], axis=1)
 
-    def getTopProducts(self, user):
+    def getRecommendation(self, user):
 
         if user in list(self.data.reviews_username):
             items = self.item_final_rating.loc[user].sort_values(ascending=False)[0:20].index
