@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Recommendation Engine</title>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  
+</head>
+<body>
+
+    <div class="header">
+      <h1>Sentiment Based Recommendation System</h1>
+      <h3 style="color: #fff ; padding: 6px" class="center-align">Sentiment Based Product Recommendation System</h3>
+    </div>
+    <form action="/" method = "Post">
+        <p class="center-align">
+            <label class="user-name-label">User Name</label><label class="required-label">   </label>
+            <label>
+                <input class="user-name-input" placeholder="Enter Username" type="text" name="username"  />
+            </label>
+        </p>
+        <p class="center-align"><button class="submit-button" type="submit">Submit</button>
+        </p>
+
+
+
+    {% if flag == False %}
+            <div class="center-align" style="font-weight: bold"> <span style="color: red;">
+            ** There is no user / recommendations exists **
+        </span></div>{% endif %}
+    {% if flag == "" %}
+            <div class="center-align" style="font-weight: bold"> <span style="color: red;">
+            
+        </span></div>{% endif %}
+    {%if flag == True%}
+        <h5 style="text-align:left;">Top 5  recommendations for {{ org_user }} will appear here!!!</h5>
+        <div class="vertical-align" style="font-weight: bold"> {{data|safe}}</div>
+
+    {%endif%}
+
+    </form>
+</body>
+</html>
+
+

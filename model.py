@@ -7,19 +7,19 @@ class Recommendation:
 
     def __init__(self):
         self.data = pickle.load(open('pickle/sentiment_data.pkl', 'rb'))
-        self.user_final_rating = pickle.load(open('pickle/item_based_recommendation.pkl', 'rb'))
+        self.item_final_rating = pickle.load(open('pickle/item_based_recommendation.pkl', 'rb'))
         self.model = pickle.load(open('pickle/sentiment_analysis_model.pkl', 'rb'))
         self.raw_data = pd.read_csv("data/sample30.csv")
-        self.data = pd.concat([self.raw_data[['id', 'name', 'brand', 'categories', 'manufacturer']], self.data], axis=1)
+        self.data = pd.concat([self.raw_data[['id', 'name','reviews_username', 'reviews_rating']], self.data], axis=1)
 
     def getTopProducts(self, user):
 
-        if user in self.raw_data.values:
-            items = self.user_final_rating.loc[user].sort_values(ascending=False)[0:20].index
+        if user in list(self.data.reviews_username):
+            items = self.item_final_rating.loc[user].sort_values(ascending=False)[0:20].index
             features = pickle.load(open('pickle/tfid_features.pkl', 'rb'))
             vectorizer = TfidfVectorizer(vocabulary=features)
             temp = self.data[self.data.id.isin(items)]
-            X = vectorizer.fit_transform(temp['Review'])
+            X = vectorizer.fit_transform(temp['reviews_preprocessed'].values.astype('U'))
             temp = temp[['id']]
             temp['prediction'] = self.model.predict(X)
             temp['prediction'] = temp['prediction'].map({'Positive': 1, 'Negative': 0})
